@@ -1,0 +1,48 @@
+---
+title: "Summary Report"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rmarkdown)
+library(knitr)
+library(noteMD)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Plot 1
+
+```{r plot-1}
+carat_df <- dplyr::select(diamonds, carat)
+# this is the input from the noteMD-flexdashboard.Rmd file. Specifically, the
+# renderPlot-bins chunk.
+carat_df %>% ggplot(aes(x = carat)) + 
+    geom_histogram(bins = input$bins)
+```
+
+## Note 1
+
+```{r note_in_md_pdf-markdowninput_plot_1, warning = FALSE}
+# this is from the first text box in the noteMD-flexdashboard.Rmd file.
+# 
+noteMD::note_in_md_pdf(input$markdowninput_plot_1)
+```
+
+## Plot 2
+
+```{r plot-2}
+dplyr::select(ggplot2::diamonds, carat, price, cut) %>%  
+   ggplot2::ggplot(aes(x = carat, y = price, color = cut)) + 
+     ggplot2::geom_point(size = input$point_size)
+```
+
+
+## Note 2
+
+```{r note_in_md_pdf-markdowninput_plot_2, warning = FALSE}
+noteMD::note_in_md_pdf(input$markdowninput_plot_2)
+```
+
+

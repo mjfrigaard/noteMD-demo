@@ -1,0 +1,42 @@
+---
+title: "Summary Report"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: word_document
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rmarkdown)
+library(knitr)
+library(noteMD)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Plot 1
+
+```{r plot-1}
+carat_df <- dplyr::select(diamonds, carat)
+carat_df %>% ggplot(aes(x = carat)) + geom_histogram(bins = input$bins)
+```
+
+## Note 1
+
+```{r note_in_md_word-markdowninput_plot_1, warning = FALSE}
+noteMD::note_in_md_word(input$markdowninput_plot_1)
+```
+
+
+## Plot 2
+
+```{r plot-2}
+dplyr::select(ggplot2::diamonds, carat, price, cut) %>%  
+   ggplot2::ggplot(aes(x = carat, y = price, color = cut)) + 
+     ggplot2::geom_point(size = input$point_size)
+```
+
+## Note 2
+
+```{r note_in_md_word-markdowninput_plot_2, warning = FALSE}
+noteMD::note_in_md_word(input$markdowninput_plot_2)
+```
